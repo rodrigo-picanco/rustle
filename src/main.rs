@@ -14,20 +14,27 @@ fn compare(a: &str, b: &str) -> Vec<u8> {
     result
 }
 
-fn run() {
-    let word = "hello";
+fn read() -> String { 
+    let mut result = String::new();
+    std::io::stdin().read_line(&mut result).unwrap();
+    result.trim().to_string()
+}
 
-    let mut guess = String::new();
-    std::io::stdin().read_line(&mut guess).unwrap();
-
-    let result = compare(word, &guess.trim());
-    for (i, c) in guess.trim().chars().enumerate() {
+fn inform(result: Vec<u8>, guess: String) {
+    for (i, c) in guess.chars().enumerate() {
         match result[i] {
             2 => print!("{}", Paint::green(c)),
             1 => print!("{}", Paint::yellow(c)),
             _ => print!("{}", Paint::red(c)),
         }
     };
+}
+
+fn run() {
+    let word = "hello";
+    let guess = read();
+    let result = compare(word, &guess);
+    inform(result, guess);
 }
 
 fn main() {
