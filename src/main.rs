@@ -15,13 +15,13 @@ fn compare(a: &str, b: &str) -> Vec<u8> {
 }
 
 fn run() {
+    let word = "hello";
 
-    let mut word = String::new();
-    std::io::stdin().read_line(&mut word).unwrap();
+    let mut guess = String::new();
+    std::io::stdin().read_line(&mut guess).unwrap();
 
-    let result = compare("hello", &word.trim());
-
-    for (i, c) in word.trim().chars().enumerate() {
+    let result = compare(word, &guess.trim());
+    for (i, c) in guess.trim().chars().enumerate() {
         match result[i] {
             2 => print!("{}", Paint::green(c)),
             1 => print!("{}", Paint::yellow(c)),
