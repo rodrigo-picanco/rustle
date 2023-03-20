@@ -1,6 +1,6 @@
 use yansi::Paint;
 
-fn compare(a: &str, b: &str) -> Vec<u8> {
+fn compare(a: &str, b: &str) -> Vec<usize> {
     let mut result = vec![0, 0, 0, 0, 0];
 
     for (i, c) in b.chars().enumerate() {
@@ -14,27 +14,35 @@ fn compare(a: &str, b: &str) -> Vec<u8> {
     result
 }
 
-fn read() -> String { 
+fn read() -> String {
     let mut result = String::new();
     std::io::stdin().read_line(&mut result).unwrap();
     result.trim().to_string()
 }
 
-fn inform(result: Vec<u8>, guess: String) {
+fn inform(result: &Vec<usize>, guess: String) {
     for (i, c) in guess.chars().enumerate() {
         match result[i] {
             2 => print!("{}", Paint::green(c)),
             1 => print!("{}", Paint::yellow(c)),
             _ => print!("{}", Paint::red(c)),
         }
-    };
+    }
+    println!();
 }
 
 fn run() {
     let word = "hello";
     let guess = read();
     let result = compare(word, &guess);
-    inform(result, guess);
+
+    inform(&result, guess);
+
+    if result.iter().sum::<usize>() == 10 {
+        return;
+    } else {
+        run()
+    }
 }
 
 fn main() {
