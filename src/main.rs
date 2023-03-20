@@ -1,3 +1,5 @@
+use yansi::Paint;
+
 fn compare(a: &str, b: &str) -> Vec<u8> {
     let mut result = vec![0, 0, 0, 0, 0];
 
@@ -12,15 +14,25 @@ fn compare(a: &str, b: &str) -> Vec<u8> {
     result
 }
 
-fn main() {
-    println!("What's the word?");
+fn run() {
 
     let mut word = String::new();
     std::io::stdin().read_line(&mut word).unwrap();
 
     let result = compare("hello", &word.trim());
 
-    println!("Result: {:?}", result);
+    for (i, c) in word.trim().chars().enumerate() {
+        match result[i] {
+            2 => print!("{}", Paint::green(c)),
+            1 => print!("{}", Paint::yellow(c)),
+            _ => print!("{}", Paint::red(c)),
+        }
+    };
+}
+
+fn main() {
+    println!("What's the word?");
+    run()
 }
 
 #[test]
