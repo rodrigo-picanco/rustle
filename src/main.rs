@@ -17,7 +17,7 @@ fn compare(a: &str, b: &str) -> Vec<usize> {
 fn read() -> String {
     let mut result = String::new();
     std::io::stdin().read_line(&mut result).unwrap();
-    result.trim().to_string()
+    result.trim().chars().take(5).collect::<String>()
 }
 
 fn inform(result: &Vec<usize>, guess: String) {
